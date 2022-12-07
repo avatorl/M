@@ -1,0 +1,32 @@
+= (prompt as text) =>
+
+let
+    model = "text-davinci-003",
+    max_tokens = 500,
+    temperature = 0.7,
+
+    ContentJSON ="{
+        ""model"": """ & model & """,
+        ""prompt"": """ & prompt & """,
+        ""max_tokens"": " & Text.From(max_tokens) & ",
+        ""temperature"": " & Text.From(temperature) &   
+    "}",
+
+    ContentBinary =  Text.ToBinary(ContentJSON),
+    Source = Json.Document(Web.Contents("https://api.openai.com/v1/completions", 
+    [
+        Headers=[
+            #"Content-Type"="application/json", 
+            #"Authorization"="Bearer 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"
+            ],
+        Content=ContentBinary
+    ]
+    )
+    ),
+    choices = Source[choices],
+    choices1 = choices{0},
+    #"Converted to Table" = Record.ToTable(choices1),
+    #"Filtered Rows" = Table.SelectRows(#"Converted to Table", each ([Name] = "text")),
+    Result = Table.RemoveColumns(#"Filtered Rows",{"Name"})[Value]{0}
+in
+    Result
