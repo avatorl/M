@@ -1,3 +1,5 @@
+//Do not trust any math and factual data provided by AI. But it is amazing in understanding human language!
+
 (prompt as text, optional model as text, optional max_tokens as number, optional temperature as number) =>
 
 let
