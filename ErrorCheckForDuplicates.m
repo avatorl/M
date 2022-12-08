@@ -1,3 +1,4 @@
+//Chech if there are duplicate rows in the table. Return Error if any
     _CountRows1 = Table.RowCount(<#"Previous Step">),
     #"Removed Duplicates" = Table.Distinct(#"Previous Step", {<"Column Name">}),
     _CountRows2 = Table.RowCount(#"Removed Duplicates"),
