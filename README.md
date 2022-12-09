@@ -1,1 +1,1 @@
-# M language functions and code snippets for PowerQuery
+# M language functions and code snippets for Power Query
