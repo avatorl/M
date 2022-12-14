@@ -1,0 +1,6 @@
+//List All table columns
+//To be used with Table.TransformColumns
+
+_ColumnNames = Table.ColumnNames(Source),
+_ColumnCount = List.Count(_ColumnNames),
+_AllColumnsFunctionType = Table.ToRows(Table.FromColumns({_ColumnNames, List.Repeat({Text.Trim}, _ColumnCount ), List.Repeat({type text}, _ColumnCount )}))
