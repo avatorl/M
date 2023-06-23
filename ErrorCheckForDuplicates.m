@@ -1,7 +1,7 @@
     //Chech if there are duplicate rows in the table. Return Error if any
     _InputTable = #"Removed Other Columns",
     _CountRows1 = Table.RowCount(_InputTable),
-    #"Removed Duplicates" = Table.Distinct(#"Previous Step", {"COLUMN_NAME"}),
+    #"Removed Duplicates" = Table.Distinct(_InputTable, {"COLUMN_NAME"}),
     _CountRows2 = Table.RowCount(#"Removed Duplicates"),
     _Error = 
     error [ 
