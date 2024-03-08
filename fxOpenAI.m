@@ -1,6 +1,7 @@
 //M function to call OpenAI API
 //Open AI API Docs: https://platform.openai.com/docs/api-reference/
 //Get your <API_KEY> at https://platform.openai.com/api-keys
+//Usage example: https://www.powerofbi.org/2024/03/08/power-query-openai-api-gpt/
 //Do not trust robots!
 
 (user as text, optional system as text, optional model as text) =>
