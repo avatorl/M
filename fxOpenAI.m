@@ -3,21 +3,28 @@
 (prompt as text, optional model as text, optional max_tokens as number, optional temperature as number) =>
 
 let
-    _model = if model = null then "text-davinci-003" else model,
+    _model = if model = null then "gpt-3.5-turbo" else model,
     _max_tokens = if max_tokens = null then 500 else max_tokens,
     _temperature = if temperature = null then 0.7 else temperature,
     
     //https://beta.openai.com/account/api-keys
-    _api_key = "<API_KEY>",
+    _api_key = "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",
     _url_base = "https://api.openai.com/",
-    _url_rel = "v1/completions",
+    _url_rel = "v1/chat/completions",
 
     ContentJSON ="{
-        ""prompt"": """ & prompt & """,
-        ""model"": """ & _model & """,        
-        ""max_tokens"": " & Text.From(_max_tokens) & ",
-        ""temperature"": " & Text.From(_temperature) &   
-    "}",
+    ""model"": """ & _model & """,
+    ""messages"": [
+      {
+        ""role"": ""system"",
+        ""content"": ""You are a helpful linguistic assistant""
+      },
+      {
+        ""role"": ""user"",
+        ""content"": """ & prompt & "!""
+      }
+    ]
+  }",
 
     ContentBinary =  Text.ToBinary(ContentJSON),
 
@@ -34,10 +41,7 @@ let
             ]
         )
     ),
-
-    choices = Source[choices]{0},    
-    #"Converted to Table" = Record.ToTable(choices),
-    #"Filtered Rows" = Table.SelectRows(#"Converted to Table", each ([Name] = "text")),
-    Result = Table.RemoveColumns(#"Filtered Rows",{"Name"})[Value]{0}
+  
+    Result = Table.SelectRows(Record.ToTable(Source[choices]{0}[message]), each ([Name] = "content"))[Value]
 in
     Result
