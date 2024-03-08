@@ -53,8 +53,8 @@ let
         )
     ),
   
-    Result = Table.SelectRows(Record.ToTable(Source[choices]{0}[message]), each ([Name] = "content"))[Value]{0}
-    //Result = Record.ToTable(Source[choices]{0}[finish_reason])
-
+    content = Table.SelectRows(Record.ToTable(Source[choices]{0}[message]), each ([Name] = "content"))[Value]{0},
+    reason = Table.SelectRows(Record.ToTable(Source[choices]{0}), each ([Name] = "finish_reason"))[Value]{0},
+    Result = {content,reason}
 in
     Result
