@@ -1,6 +1,6 @@
 //M function to call OpenAI API
 //Open AI API Docs: https://platform.openai.com/docs/api-reference/
-//Get your API Key at https://platform.openai.com/api-keys
+//Get your <API_KEY> at https://platform.openai.com/api-keys
 //Do not trust robots!
 
 (user as text, optional system as text, optional model as text) =>
