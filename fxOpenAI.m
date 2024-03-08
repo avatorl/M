@@ -3,7 +3,7 @@
 //Get your API Key at https://platform.openai.com/api-keys
 //Do not trust robots!
 
-(system as text, prompt as text, optional prefix as text, optional model as text) =>
+(system as text, prompt as text, optional model as text) =>
 
 let
 
@@ -13,7 +13,6 @@ let
     //gpt-3.5-turbo
 
     _model = if model = null then "gpt-3.5-turbo" else model,
-    _prefix =if prefix = null then "" else prefix,
 
     _api_key = "<API_KEY>",
     _url_base = "https://api.openai.com/",
@@ -28,7 +27,7 @@ let
       },
       {
         ""role"": ""user"",
-        ""content"": """ & _prefix & prompt & """
+        ""content"": """ & prompt & """
       }
     ]
   }",
