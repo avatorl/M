@@ -12,7 +12,7 @@ let
     //gpt-4
     //gpt-3.5-turbo
 
-    _model = if model = null then "gpt-3.5-turbo" else model,
+    _model = if model = null then "gpt-4-turbo-preview" else model,
     _system = if system = null then "" else "{
         ""role"": ""system"",
         ""content"": """ & system & """
