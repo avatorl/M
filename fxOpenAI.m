@@ -3,7 +3,7 @@
 //Get your API Key at https://platform.openai.com/api-keys
 //Do not trust robots!
 
-(prompt as text, optional prefix as text, optional model as text) =>
+(system as text, prompt as text, optional prefix as text, optional model as text) =>
 
 let
 
@@ -24,7 +24,7 @@ let
     ""messages"": [
       {
         ""role"": ""system"",
-        ""content"": ""You are a helpful linguistic assistant""
+        ""content"": """ & system & """
       },
       {
         ""role"": ""user"",
