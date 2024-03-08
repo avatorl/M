@@ -1,13 +1,11 @@
-//Do not trust any math and factual data provided by AI. But it is amazing in understanding human language!
+//Do not trust robots!
 
-(prefix as text, prompt as text, optional model as text, optional max_tokens as number, optional temperature as number) =>
+(prompt as text, optional prefix as text, optional model as text) =>
 
 let
     _model = if model = null then "gpt-3.5-turbo" else model,
-    _max_tokens = if max_tokens = null then 500 else max_tokens,
-    _temperature = if temperature = null then 0.7 else temperature,
-    
-    //https://beta.openai.com/account/api-keys
+    _prefix =if prefix = null then "" else prefix,
+
     _api_key = "<API_KEY>",
     _url_base = "https://api.openai.com/",
     _url_rel = "v1/chat/completions",
@@ -42,6 +40,6 @@ let
         )
     ),
   
-    Result = Table.SelectRows(Record.ToTable(Source[choices]{0}[message]), each ([Name] = "content"))[Value]
+    Result = Table.SelectRows(Record.ToTable(Source[choices]{0}[message]), each ([Name] = "content"))[Value]{0}
 in
     Result
