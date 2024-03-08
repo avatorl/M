@@ -8,7 +8,7 @@ let
     _temperature = if temperature = null then 0.7 else temperature,
     
     //https://beta.openai.com/account/api-keys
-    _api_key = "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",
+    _api_key = "<API KEY>",
     _url_base = "https://api.openai.com/",
     _url_rel = "v1/chat/completions",
 
