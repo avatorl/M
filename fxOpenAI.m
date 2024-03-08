@@ -1,9 +1,21 @@
+//M function to call OpenAI API
+//Open AI API Docs: https://platform.openai.com/docs/api-reference/
+//Get your API Key at https://platform.openai.com/api-keys
 //Do not trust robots!
-//https://platform.openai.com/docs/api-reference/introduction
 
 (prompt as text, optional prefix as text, optional model as text) =>
 
 let
+
+    //ENDPOINT v1/assistants and /v1/chat/completions
+    //gpt-4-turbo-preview
+    //gpt-4-vision-preview
+    //gpt-4
+    //gpt-3.5-turbo
+
+    //ENDPOINT v1/images/generations
+    //dall-e-3
+
     _model = if model = null then "gpt-3.5-turbo" else model,
     _prefix =if prefix = null then "" else prefix,
 
@@ -20,7 +32,7 @@ let
       },
       {
         ""role"": ""user"",
-        ""content"": """ & prefix & prompt & "!""
+        ""content"": """ & _prefix & prompt & """
       }
     ]
   }",
@@ -42,5 +54,7 @@ let
     ),
   
     Result = Table.SelectRows(Record.ToTable(Source[choices]{0}[message]), each ([Name] = "content"))[Value]{0}
+    //Result = Record.ToTable(Source[choices]{0}[finish_reason])
+
 in
     Result
