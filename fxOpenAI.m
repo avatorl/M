@@ -3,7 +3,7 @@
 //Get your API Key at https://platform.openai.com/api-keys
 //Do not trust robots!
 
-(system as text, prompt as text, optional model as text) =>
+(user as text, optional system as text, optional model as text) =>
 
 let
 
@@ -13,6 +13,10 @@ let
     //gpt-3.5-turbo
 
     _model = if model = null then "gpt-3.5-turbo" else model,
+    _system = if system = null then "" else "{
+        ""role"": ""system"",
+        ""content"": """ & system & """
+      },",
 
     _api_key = "<API_KEY>",
     _url_base = "https://api.openai.com/",
@@ -21,13 +25,10 @@ let
     ContentJSON ="{
     ""model"": """ & _model & """,
     ""messages"": [
-      {
-        ""role"": ""system"",
-        ""content"": """ & system & """
-      },
+      " & _system & "
       {
         ""role"": ""user"",
-        ""content"": """ & prompt & """
+        ""content"": """ & user & """
       }
     ]
   }",
