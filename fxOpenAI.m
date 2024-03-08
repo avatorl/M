@@ -1,4 +1,5 @@
 //Do not trust robots!
+//https://platform.openai.com/docs/api-reference/introduction
 
 (prompt as text, optional prefix as text, optional model as text) =>
 
