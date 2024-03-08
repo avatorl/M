@@ -7,14 +7,10 @@
 
 let
 
-    //ENDPOINT v1/assistants and /v1/chat/completions
+    //ENDPOINT /v1/chat/completions
     //gpt-4-turbo-preview
-    //gpt-4-vision-preview
     //gpt-4
     //gpt-3.5-turbo
-
-    //ENDPOINT v1/images/generations
-    //dall-e-3
 
     _model = if model = null then "gpt-3.5-turbo" else model,
     _prefix =if prefix = null then "" else prefix,
