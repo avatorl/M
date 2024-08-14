@@ -40,7 +40,7 @@ let
     
     Add_YYYYMMDD_Number = Table.AddColumn(Add_DateNumber, "YYYYMMDD Number", each Number.From(Date.ToText([Date], "yyyyMMdd")), Int64.Type),
     Add_YearNumber = Table.AddColumn(Add_YYYYMMDD_Number, "Year Number", each Date.Year([Date]), Int64.Type),
-    Add_YYYY_MM = Table.AddColumn(Add_YearNumber, "YYYY-MM", each Date.ToText( [Date], "yyyy-MM"), type text),
+    Add_YYYY_MM = Table.AddColumn(Add_YearNumber, "YYYY-MM", each Date.ToText([Date], "yyyy-MM"), type text),
 
     //MONTH
     
@@ -53,22 +53,25 @@ let
 
     //ISO WEEK
     
-    AddISOWeek = Table.AddColumn(AddDaysInMonth, "ISO Week", each let
+    AddISOWeek = Table.AddColumn(AddDaysInMonth, "ISO Week Number", each let
         CurrentThursday = Date.AddDays([Date], 3-Date.DayOfWeek([Date], Day.Monday)),
         YearCurrentThursday = Date.Year(CurrentThursday),
         FirstThursdayOfYear = Date.AddDays(#date(YearCurrentThursday,1,7),-Date.DayOfWeek(#date(YearCurrentThursday,1,1), Day.Friday)),
         AddISOWeek = Duration.Days(CurrentThursday-FirstThursdayOfYear)/7+1
     in AddISOWeek, Int64.Type),
-    AddISOYear = Table.AddColumn(AddISOWeek, "ISO Year", each Date.Year(Date.AddDays([Date], 26-[ISO Week])), Int64.Type),
+    AddISOYear = Table.AddColumn(AddISOWeek, "ISO Year", each Date.Year(Date.AddDays([Date], 26-[ISO Week Number])), Int64.Type),
+    AddISOYear_Week = Table.AddColumn(AddISOYear, "ISO Year-Week", each Text.From([ISO Year]) & "-W" & Number.ToText([ISO Week Number], "00"), type text),
 
     //WEEK
     
-    AddWeekStart = Table.AddColumn(AddISOYear, "Start of Week", each Date.StartOfWeek([Date], _FirstDayOfWeek), type date),
+    AddWeekStart = Table.AddColumn(AddISOYear_Week, "Start of Week", each Date.StartOfWeek([Date], _FirstDayOfWeek), type date),
     AddWeekEnd = Table.AddColumn(AddWeekStart, "End of Week", each Date.EndOfWeek([Date], _FirstDayOfWeek), type date),
     AddDayOfWeekNumber = Table.AddColumn(AddWeekEnd, "Day of Week Number", each Date.DayOfWeek([Date], _FirstDayOfWeek), Int64.Type),
     AddIsWeekend = Table.AddColumn(AddDayOfWeekNumber, "Is Weekend", each if Date.DayOfWeek([Date])>=5 then 1 else 0, Int64.Type),
     AddIsWeekday = Table.AddColumn(AddIsWeekend, "Is Weekday", each if Date.DayOfWeek([Date])<5 then 1 else 0, Int64.Type),
-    AddDayOfWeekLong = Table.AddColumn(AddIsWeekday, "Day of Week Long", each Date.DayOfWeekName([Date], "EN-us"), type text),
+    AddWeekNumber = Table.AddColumn(AddIsWeekday, "Week Number", each Date.WeekOfYear([Date], _FirstDayOfWeek), type text),
+    AddYear_Week = Table.AddColumn(AddWeekNumber, "Year-Week", each Text.From([Year]) & "-W" & Number.ToText([Week Number], "00"), type text),
+    AddDayOfWeekLong = Table.AddColumn(AddYear_Week, "Day of Week Long", each Date.DayOfWeekName([Date], "EN-us"), type text),
     AddDayOfWeekShort3 = Table.AddColumn(AddDayOfWeekLong, "Day of Week Short 3", each Date.ToText([Date], "ddd", "EN-us"), type text),
     AddDayOfWeekShort2 = Table.AddColumn(AddDayOfWeekShort3, "Day of Week Short 2", each Text.Start([Day of Week Short 3], 2), type text),
 
@@ -83,8 +86,9 @@ let
     AddQuarter = Table.AddColumn(AddQuarterNumber, "Quarter", each "Q" & Text.From(Date.QuarterOfYear([Date])), type text),
     AddYearQuarter = Table.AddColumn(AddQuarter, "Year-Quarter", each Text.From(Date.Year([Date])) & "-Q" & Text.From( Date.QuarterOfYear([Date])), type text),
 
-    //Simple fiscal year
+    //Simple fiscal year. Edit _FirstMonthOfFiscalYear in the CONFIG section to change first month of the fiscal year 
 
-    AddFY_YYYY = Table.AddColumn(AddYearQuarter, "FY-YYYY", each "FY-" & Date.ToText(Date.AddMonths(#date(Date.Year([Date])+1,Date.Month([Date]),Date.Day([Date])),-_FirstMonthOfFiscalYear+1), "yyyy", "EN-us"), type text)
+    AddFY_YYYY = Table.AddColumn(AddYearQuarter, "FY-YYYY", each "FY-" & Date.ToText(Date.AddMonths(#date(Date.Year([Date])+1,Date.Month([Date]),1),-_FirstMonthOfFiscalYear+1), "yyyy", "EN-us"), type text),
+    AddFY_YY = Table.AddColumn(AddFY_YYYY, "FY-YY", each "FY-" & Date.ToText(Date.AddMonths(#date(Date.Year([Date])+1,Date.Month([Date]),1),-_FirstMonthOfFiscalYear+1), "yy", "EN-us"), type text)
 in
-    AddFY_YYYY
+    AddFY_YY
