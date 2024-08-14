@@ -1,8 +1,9 @@
 //============================================
 // Date Table (Calendar and Fiscal Periods)
 // Useful Links:
-//   https://gorilla.bi/power-query/create-iso-week-and-iso-year/
-//   https://www.sqlbi.com/articles/reference-date-table-in-dax-and-power-bi/
+//      https://gorilla.bi/power-query/create-iso-week-and-iso-year/
+//      https://www.sqlbi.com/articles/reference-date-table-in-dax-and-power-bi/
+//      https://radacad.com/power-bi-date-or-calendar-table-best-method-dax-or-power-query
 //============================================
 let
 
