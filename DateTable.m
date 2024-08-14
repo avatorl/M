@@ -106,8 +106,10 @@ let
     AddQuarter = Table.AddColumn(AddQuarterNumber, "Quarter", each "Q" & Text.From(Date.QuarterOfYear([Date])), type text),
     // Add year and quarter (e.g., 2024-Q3)
     AddYearQuarter = Table.AddColumn(AddQuarter, "Year-Quarter", each Text.From(Date.Year([Date])) & "-Q" & Text.From(Date.QuarterOfYear([Date])), type text),
+    // Add fiscal year interger (e.g., 2025). Adjust _FirstMonthOfFiscalYear to change the first month of the fiscal year.
+    AddFiscalYear = Table.AddColumn(AddYearQuarter, "Fiscal Year", each Date.Year(Date.AddMonths(#date(Date.Year([Date]) + 1, Date.Month([Date]), 1), -_FirstMonthOfFiscalYear + 1)), Int64.Type),
     // Add fiscal year (e.g., FY2025). Adjust _FirstMonthOfFiscalYear to change the first month of the fiscal year.
-    AddFY_YYYY = Table.AddColumn(AddYearQuarter, "FY-YYYY", each "FY-" & Date.ToText(Date.AddMonths(#date(Date.Year([Date]) + 1, Date.Month([Date]), 1), -_FirstMonthOfFiscalYear + 1), "yyyy", "EN-us"), type text),
+    AddFY_YYYY = Table.AddColumn(AddFiscalYear, "FY-YYYY", each "FY-" & Text.From([Fiscal Year]), type text),
     // Add fiscal year (e.g., FY25). Adjust _FirstMonthOfFiscalYear to change the first month of the fiscal year.
     AddFY_YY = Table.AddColumn(AddFY_YYYY, "FY-YY", each "FY-" & Date.ToText(Date.AddMonths(#date(Date.Year([Date]) + 1, Date.Month([Date]), 1), -_FirstMonthOfFiscalYear + 1), "yy", "EN-us"), type text),
     // Add fiscal month number. Adjust _FirstMonthOfFiscalYear to change the first month of the fiscal year.
