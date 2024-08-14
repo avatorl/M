@@ -70,7 +70,7 @@ let
     AddIsWeekend = Table.AddColumn(AddDayOfWeekNumber, "Is Weekend", each if Date.DayOfWeek([Date])>=5 then 1 else 0, Int64.Type),
     AddIsWeekday = Table.AddColumn(AddIsWeekend, "Is Weekday", each if Date.DayOfWeek([Date])<5 then 1 else 0, Int64.Type),
     AddWeekNumber = Table.AddColumn(AddIsWeekday, "Week Number", each Date.WeekOfYear([Date], _FirstDayOfWeek), type text),
-    AddYear_Week = Table.AddColumn(AddWeekNumber, "Year-Week", each Text.From([Year]) & "-W" & Number.ToText([Week Number], "00"), type text),
+    AddYear_Week = Table.AddColumn(AddWeekNumber, "Year-Week", each Text.From([Year Number]) & "-W" & Number.ToText([Week Number], "00"), type text),
     AddDayOfWeekLong = Table.AddColumn(AddYear_Week, "Day of Week Long", each Date.DayOfWeekName([Date], "EN-us"), type text),
     AddDayOfWeekShort3 = Table.AddColumn(AddDayOfWeekLong, "Day of Week Short 3", each Date.ToText([Date], "ddd", "EN-us"), type text),
     AddDayOfWeekShort2 = Table.AddColumn(AddDayOfWeekShort3, "Day of Week Short 2", each Text.Start([Day of Week Short 3], 2), type text),
