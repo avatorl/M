@@ -85,6 +85,6 @@ let
 
     //Simple fiscal year
 
-    AddFY_YYYY = Table.AddColumn(AddYearQuarter, "FY-YYYY", each "FY-" & Date.ToText(Date.AddMonths(#date(Date.Year([Date]),Date.Month([Date]),Date.Day([Date])),-_FirstMonthOfFiscalYear+1), "yyyy", "EN-us"), type text)
+    AddFY_YYYY = Table.AddColumn(AddYearQuarter, "FY-YYYY", each "FY-" & Date.ToText(Date.AddMonths(#date(Date.Year([Date])+1,Date.Month([Date]),Date.Day([Date])),-_FirstMonthOfFiscalYear+1), "yyyy", "EN-us"), type text)
 in
     AddFY_YYYY
