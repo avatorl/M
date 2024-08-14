@@ -89,6 +89,7 @@ let
     //Simple fiscal year. Edit _FirstMonthOfFiscalYear in the CONFIG section to change first month of the fiscal year 
 
     AddFY_YYYY = Table.AddColumn(AddYearQuarter, "FY-YYYY", each "FY-" & Date.ToText(Date.AddMonths(#date(Date.Year([Date])+1,Date.Month([Date]),1),-_FirstMonthOfFiscalYear+1), "yyyy", "EN-us"), type text),
-    AddFY_YY = Table.AddColumn(AddFY_YYYY, "FY-YY", each "FY-" & Date.ToText(Date.AddMonths(#date(Date.Year([Date])+1,Date.Month([Date]),1),-_FirstMonthOfFiscalYear+1), "yy", "EN-us"), type text)
+    AddFY_YY = Table.AddColumn(AddFY_YYYY, "FY-YY", each "FY-" & Date.ToText(Date.AddMonths(#date(Date.Year([Date])+1,Date.Month([Date]),1),-_FirstMonthOfFiscalYear+1), "yy", "EN-us"), type text),
+    AddFiscalMonthNumber = Table.AddColumn(AddFY_YY, "Fiscal Month Number", each if [Month Number]>=_FirstMonthOfFiscalYear then [Month Number]-_FirstMonthOfFiscalYear+1 else [Month Number]+_FirstMonthOfFiscalYear-1, Int64.Type)
 in
-    AddFY_YY
+    AddFiscalMonthNumber
