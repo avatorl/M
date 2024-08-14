@@ -1,5 +1,6 @@
 // Convert HSV (Hue, Saturation, Value) color into HSL (Hue, Saturation, Lightness) color
-//returns a record with [HSL_H, HSL_S, HSL_L] values
+// HSL and HSV: https://en.wikipedia.org/wiki/HSL_and_HSV
+// Returns a record with [HSL_H, HSL_S, HSL_L] values
 (HSV_H as number, HSV_S as number, HSV_V as number) =>
 let
     // Normalize the Saturation (S) and Value (V) from the HSV model to a 0-1 scale
