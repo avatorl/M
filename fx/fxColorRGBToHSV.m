@@ -1,4 +1,5 @@
-// Convert RGB color into HSV color (returns a record with [H, S, V] values)
+// Convert RGB (Red, Green, Blue) color into HSV (Hue, Saturation, Value) color
+//returns a record with [H, S, V] values
 (R as number, G as number, B as number) =>
 
 let
