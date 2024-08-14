@@ -40,13 +40,10 @@ let
 
     // Add day number (days since midnight of 1989-12-30)
     Add_DayNumber = Table.AddColumn(Changed_Type_Date, "Day Number", each Number.From([Date]), Int64.Type),
-
     // Add relative day number (days from today)
     Add_RelativeDays = Table.AddColumn(Add_DayNumber, "Relative Days from Today", each Number.From([Date])-Number.From(DateTime.Date(DateTime.FixedLocalNow())), Int64.Type),
-
     // Add YYYYMMDD integer (e.g., 20240814)
     Add_YYYYMMDD_Number = Table.AddColumn(Add_RelativeDays, "YYYYMMDD Number", each Number.From(Date.ToText([Date], "yyyyMMdd")), Int64.Type),
-
     // Add day of the year (1..366)
     AddDayOfYear = Table.AddColumn(Add_YYYYMMDD_Number, "Day of Year", each Date.DayOfYear([Date]), Int64.Type),
     // Add day of the month (1..31)
