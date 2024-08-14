@@ -52,9 +52,13 @@ let
     // Add day of the month (1..31)
     AddDayOfMonth = Table.AddColumn(AddDayOfYear, "Day of Month", each Date.Day([Date]), Int64.Type),
     // Add year as an integer (e.g., 2024)
-    Add_YearNumber = Table.AddColumn(AddDayOfMonth, "Year Number", each Date.Year([Date]), Int64.Type),
+    Add_YearNumber = Table.AddColumn(AddDayOfMonth, "Year Number", each Date.Year([Date]), Int64.Type),    
+    // Add the first day of the year
+    AddYearStart = Table.AddColumn(Add_YearNumber, "Start of Year", each Date.StartOfYear([Date]), type date),
+    // Add the last day of the year
+    AddYearEnd = Table.AddColumn(AddYearStart, "End of Year", each Date.EndOfYear([Date]), type date),
     // Add year-month (e.g., 2024-08)
-    Add_YYYY_MM = Table.AddColumn(Add_YearNumber, "YYYY-MM", each Date.ToText([Date], "yyyy-MM"), type text),
+    Add_YYYY_MM = Table.AddColumn(AddYearEnd, "YYYY-MM", each Date.ToText([Date], "yyyy-MM"), type text),
     // Add month as an integer (1..12)
     AddMonthNumber = Table.AddColumn(Add_YYYY_MM, "Month Number", each Date.Month([Date]), Int64.Type),
     // Add full month name (e.g., August)
