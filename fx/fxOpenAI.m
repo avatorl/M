@@ -4,7 +4,7 @@
 
 // Function parameters:
 // - user (required): The user prompt to send to the OpenAI API
-// - system (optional): Optional system message to provide additional context to the model
+// - system (optional): Optional system message to provide additional instructions to the model
 // - model (optional): Specify the model to use (e.g., gpt-4, gpt-4o-mini, gpt-4o etc.)
 
 (user as text, optional system as text, optional model as text) =>
@@ -19,7 +19,7 @@ let
         ""content"": """ & system & """
       },",
 
-    // Define the OpenAI API key (replace this with your actual key)
+    // Define the OpenAI API key (replace <OPENAI_API_KEY> with your actual key)
     _api_key = "<OPENAI_API_KEY>",
 
     // Define the base URL and relative path for the API endpoint
