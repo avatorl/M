@@ -1,3 +1,4 @@
+// HSL and HSV: https://en.wikipedia.org/wiki/HSL_and_HSV
 // Convert HSV (Hue, Saturation, Value) color into HSL (Hue, Saturation, Lightness) color
 // HSL and HSV: https://en.wikipedia.org/wiki/HSL_and_HSV
 // Returns a record with [HSL_H, HSL_S, HSL_L] values
