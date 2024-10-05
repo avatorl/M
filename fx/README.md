@@ -11,6 +11,9 @@ Build a list of all table columns for Table.ReplaceErrorValues()
 Output: {{"Column1", null}, {"Column2", null}}
 Usage: Table.ReplaceErrorValues(table as table, errorReplacement as list) as table
 
+### [fxHex2Dec.m](https://github.com/avatorl/M/blob/master/fx/fxHex2Dec.m)
+Convert a hexadecimal value (as text) to a decimal value
+
 ### [fxSplitAndProperCaseColumnName.m](https://github.com/avatorl/M/blob/master/fx/fxSplitAndProperCaseColumnName.m)
 Function to convert a column name from 'thiIsColumnName' format to 'This Is Column Name' format
 
@@ -21,9 +24,6 @@ Convert HSV (Hue, Saturation, Value) color into HSL (Hue, Saturation, Lightness)
 
 ### [fxColorRGBToHSV.m](https://github.com/avatorl/M/blob/master/fx/fxColorRGBToHSV.m)
 Convert RGB (Red, Green, Blue) color into HSV (Hue, Saturation, Value) color
-
-### [fxHex2Dec.m](https://github.com/avatorl/M/blob/master/fx/fxHex2Dec.m)
-Convert a hexadecimal value (as text) to a decimal value
 
 ### [fxGetBMPImagePixelColors.m](https://github.com/avatorl/M/blob/master/fx/fxGetBMPImagePixelColors.m)
 Get pixel colors from BMP file (binary => table)
