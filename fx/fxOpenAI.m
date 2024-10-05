@@ -24,7 +24,11 @@ let
     _system = system ?? "You're a helpful assistant",
 
     // Set to true to enable structured output (JSON format of the GPT response)
-    structured_output = false,    
+    structured_output = true,    
+
+    // Example:
+    //    User prompt: "Translate this text into French, Italian, and German. Text to translate: I have an apple and 2 oranges"
+    //    GPT response JSON: {{"TranslationFR": "J'ai une pomme et 2 oranges"},{"TranslationIT": "Ho una mela e 2 arance"},{"TranslationDE": "Ich habe einen Apfel und 2 Orangen"}}
 
     // Define the expected JSON schema for structured output
     _response_format = [
@@ -36,9 +40,11 @@ let
             schema = [
             type = "object",
             properties = [
-                response = [type = "string", description = "put response here"]
+                translationFR = [type = "string", description = "put French translation here"],
+                translationIT = [type = "string", description = "put Italian translation here"],
+                translationDE = [type = "string", description = "put German translation here"]
             ],     
-            required = {"response"},
+            required = {"translationFR","translationIT","translationDE"},
             additionalProperties = false
         ]
     ]
