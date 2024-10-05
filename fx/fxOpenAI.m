@@ -1,5 +1,6 @@
 // Power Query M function to call the OpenAI API
 // OpenAI API Documentation: https://platform.openai.com/docs/api-reference/
+//      Create chat completion: https://platform.openai.com/docs/api-reference/chat/create
 // Get your API Key at https://platform.openai.com/api-keys
 
 // Function parameters:
