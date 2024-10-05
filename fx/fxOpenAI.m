@@ -1,4 +1,5 @@
 // Power Query M function to call the OpenAI API
+// Blog post: https://www.powerofbi.org/2024/10/06/m-language-function-to-call-open-ai-api-from-power-query/
 // OpenAI API Documentation: https://platform.openai.com/docs/api-reference/
 //      Create chat completion: https://platform.openai.com/docs/api-reference/chat/create
 //      API errors: https://platform.openai.com/docs/guides/error-codes/api-errors
