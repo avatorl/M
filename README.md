@@ -1,6 +1,7 @@
 # M language functions and code snippets for Power Query
 
-## fx - various custom functions
+## [fx](https://github.com/avatorl/M/blob/master/fx)
+Various custom functions
 
 ## [DateTable.m](https://github.com/avatorl/M/blob/master/DateTable.m)
 Date table
