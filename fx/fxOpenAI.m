@@ -100,24 +100,27 @@
                 requestDataBase,
         //
         // Make the API call using Web.Contents and capture the response
-        response = Web.Contents(
-            _url_base,
-            [
-                RelativePath = _url_rel,
-                Headers = [
-                    #"Content-Type" = "application/json",
-                    #"Authorization" = "Bearer " & _api_key
-                ],
-                Content = Json.FromValue(requestData),
-                ManualStatusHandling = {400, 401, 403, 404, 429, 500, 503}
-                // List of status codes to handle
-            ]
-        ),
+        response =
+            let
+                httpRequest = Web.Contents(
+                    _url_base,
+                    [
+                        RelativePath = _url_rel,
+                        Headers = [
+                            #"Content-Type" = "application/json",
+                            #"Authorization" = "Bearer " & _api_key
+                        ],
+                        Content = Json.FromValue(requestData),
+                        ManualStatusHandling = {400, 401, 403, 404, 429, 500, 503}
+                        // List of status codes to handle
+                    ]
+                )
+            in
+                httpRequest,
         //
         // Extract metadata from the response
         responseMetadata = Value.Metadata(response),
         responseCode = responseMetadata[Response.Status],
-        responseHeaders = responseMetadata[Headers],
         responseText = Text.FromBinary(response),
         //
         // Check the response code and handle errors
@@ -136,7 +139,9 @@
                         else
                             "An unknown error occurred.",
                     // Raise an error with the appropriate details
-                    errorRecord = Error.Record("Error", Text.From(responseCode) & " " & errorMessage, errorResponse)
+                    errorRecord = Error.Record(
+                        "Open AI API Request Error " & Text.From(responseCode), errorMessage, errorResponse
+                    )
                 in
                     // Raise an error with the appropriate details
                     error errorRecord
