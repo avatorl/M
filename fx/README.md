@@ -3,6 +3,9 @@
 ### [fxOpenAI.m](https://github.com/avatorl/M/blob/master/fx/fxOpenAI.m)
 Call Open AI API from Power Query. Supports structured output (JSON format of the GPT response). [Read more...](https://www.powerofbi.org/2024/10/06/m-language-function-to-call-open-ai-api-from-power-query/)
 
+### [fxGetDataflowTable.m](https://github.com/avatorl/M/blob/master/fx/fxGetDataflowTable.m)
+Retrieves data from a specified entity (table) within a dataflow in a Power BI workspace.
+
 ### [fxErrorCheckForDuplicates.m](https://github.com/avatorl/M/blob/master/fx/fxErrorCheckForDuplicates.m)
 Check if the specified column in the InputTable contains duplicate values. Returns the InputTable if no duplicates are found; otherwise, raises an error. Can be used for data validation.
 
