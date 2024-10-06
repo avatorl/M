@@ -33,13 +33,17 @@
     let
         // CONFIGURATION ==================================================================================
         // Replace the API key below with your actual API key
-        _api_key = "sk-proj-LnQ...",
+        _api_key = "sk-proj-...SR8A",
         // Determine the model to use, defaulting to "gpt-4o-mini" if none is provided
         _model = model ?? "gpt-4o-mini",
         // Prepare user prompt: concatenate userData with user
         _user = user & " " & (userData ?? ""),
         // Determine the system message, defaulting to "You're a helpful assistant" if none is provided
         _system = system ?? "You're a helpful assistant",
+        // What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic
+        _temperature = 1,
+        // An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens
+        _max_completion_tokens = null,
         // Determine if structured output (JSON format of the GPT response) is enabled
         _structured_output = structuredOutput ?? false,
         // Structured output example:
@@ -75,6 +79,10 @@
         // Create the JSON body for the API request, including the user message and system message
         requestDataBase = [
             model = _model,
+            // An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens
+            max_completion_tokens = _max_completion_tokens,
+            // What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic
+            temperature = _temperature,
             messages = {[
                 role = "system",
                 content = _system
