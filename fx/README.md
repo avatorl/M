@@ -4,7 +4,7 @@
 Call Open AI API from Power Query. Supports structured output. [Read more...](https://www.powerofbi.org/2024/10/06/m-language-function-to-call-open-ai-api-from-power-query/)
 
 ### [fxErrorCheckForDuplicates.m](https://github.com/avatorl/M/blob/master/fx/fxErrorCheckForDuplicates.m)
-Check if the specified column in the InputTable contains duplicate values. Returns the InputTable if no duplicates are found; otherwise, raises an error.
+Check if the specified column in the InputTable contains duplicate values. Returns the InputTable if no duplicates are found; otherwise, raises an error. Can be used for data validation.
 
 ### [fxGetListOfAllErrReplacements.m](https://github.com/avatorl/M/blob/master/fx/fxGetListOfAllErrReplacements.m)
 Build a list of all table columns for Table.ReplaceErrorValues()
@@ -27,9 +27,3 @@ Convert RGB (Red, Green, Blue) color into HSV (Hue, Saturation, Value) color
 
 ### [fxGetBMPImagePixelColors.m](https://github.com/avatorl/M/blob/master/fx/fxGetBMPImagePixelColors.m)
 Get pixel colors from BMP file (binary => table)
-
-
-
-
-
-
