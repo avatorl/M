@@ -1,5 +1,5 @@
 // This code adds a logical column to check if each value in [ColumnToFilterBy] exists in Table[Column], filters the rows where this condition is true, and then removes the helper column.
-// To be used when filtering an SQL table by a list of hardcoded (in another query) values (or values coming from another source) to ensure the non-breaking of query folding.
+// To be used when filtering an SQL table by a small list of hardcoded (in another query) values (or values coming from another source) to ensure the non-breaking of query folding.
 
 // Instructions for Replacing Placeholders
 //  PreviousStep: Replace this with the name of your previous query step or source table. This is the table you want to filter.
