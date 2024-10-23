@@ -154,8 +154,14 @@ let
     // Add year and quarter (e.g., 2024-Q3)
     AddYearQuarter = Table.AddColumn(AddQuarter, "Year-Quarter", each Text.From(Date.Year([Date])) & "-Q" & Text.From(Date.QuarterOfYear([Date])), type text),
 
+    // Add Start of Quarter
+    AddStartOfQuarter = Table.AddColumn(AddYearQuarter, "Start of Quarter", each Date.StartOfQuarter([Date]), type date),
+
+    // Add End of Quarter
+    AddEndOfQuarter = Table.AddColumn(AddStartOfQuarter, "End of Quarter", each Date.EndOfQuarter([Date]), type date),
+
     // Add fiscal year (integer)
-    AddFiscalYear = Table.AddColumn(AddYearQuarter, "Fiscal Year", each Date.Year(Date.AddMonths(#date(Date.Year([Date]) + 1, Date.Month([Date]), 1), -_FirstMonthOfFiscalYear + 1)), Int64.Type),
+    AddFiscalYear = Table.AddColumn(AddEndOfQuarter, "Fiscal Year", each Date.Year(Date.AddMonths(#date(Date.Year([Date]) + 1, Date.Month([Date]), 1), -_FirstMonthOfFiscalYear + 1)), Int64.Type),
 
     // Add fiscal year (e.g., FY2025)
     AddFY_YYYY = Table.AddColumn(AddFiscalYear, "FY-YYYY", each "FY-" & Text.From([Fiscal Year]), type text),
