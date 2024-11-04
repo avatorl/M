@@ -185,8 +185,9 @@ let
     AddOffsetFiscalYear = Table.AddColumn(AddOffsetQuarter, "offsetThisFiscalYearYears", each [Fiscal Year] - Date.Year(Date.AddMonths(#date(Date.Year(_Today) + 1, Date.Month(_Today), 1), -_FirstMonthOfFiscalYear + 1)), Int64.Type),    
 
     // Add isAfterToday (1 = in the future, 0 = today or past)
-    AddIsAfterToday = Table.AddColumn(AddOffsetFiscalYear, "isAfterToday", each if [Date] > _Today then 1 else 0, Int64.Type)    
+    AddIsAfterToday = Table.AddColumn(AddOffsetFiscalYear, "isAfterToday", each if [Date] > _Today then 1 else 0, Int64.Type),
 
-
+    // Add offset for this week (1 = next week, -1 = previous week)
+    AddWeekOffset = Table.AddColumn(AddIsAfterToday, "offsetThisWeekWeeks", each Number.RoundDown(Duration.Days([Date] - Date.StartOfWeek(_Today, _FirstDayOfWeek)) / 7), Int64.Type),   
 in
-    AddIsAfterToday
+    AddWeekOffset
