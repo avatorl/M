@@ -188,6 +188,6 @@ let
     AddIsAfterToday = Table.AddColumn(AddOffsetFiscalYear, "isAfterToday", each if [Date] > _Today then 1 else 0, Int64.Type),
 
     // Add offset for this week (1 = next week, -1 = previous week)
-    AddWeekOffset = Table.AddColumn(AddIsAfterToday, "offsetThisWeekWeeks", each Number.RoundDown(Duration.Days([Date] - Date.StartOfWeek(_Today, _FirstDayOfWeek)) / 7), Int64.Type),   
+    AddWeekOffset = Table.AddColumn(AddIsAfterToday, "offsetThisWeekWeeks", each Number.RoundDown(Duration.Days([Date] - Date.StartOfWeek(_Today, _FirstDayOfWeek)) / 7), Int64.Type)
 in
     AddWeekOffset
