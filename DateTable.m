@@ -60,7 +60,7 @@ let
     Add_DayNumber = Table.AddColumn(Changed_Type_Date, "Days since 1899-12-30", each Number.From([Date]), Int64.Type),
 
     // Add relative day number (days from today)
-    Add_RelativeDays = Table.AddColumn(Add_DayNumber, "offsetTodayDays", each Number.From([Date])-Number.From(_Today), Int64.Type),
+    Add_RelativeDays = Table.AddColumn(Add_DayNumber, "Offset Days", each Number.From([Date])-Number.From(_Today), Int64.Type),
 
     // Add YYYYMMDD as an integer (e.g., 20240814)
     Add_YYYYMMDD_Number = Table.AddColumn(Add_RelativeDays, "YYYYMMDD Number", each Number.From(Date.ToText([Date], "yyyyMMdd")), Int64.Type),
@@ -173,21 +173,21 @@ let
     AddFiscalMonthNumber = Table.AddColumn(AddFY_YY, "Fiscal Month Number", each if [Month Number] >= _FirstMonthOfFiscalYear then [Month Number] - _FirstMonthOfFiscalYear + 1 else [Month Number] + 12 - _FirstMonthOfFiscalYear + 1, Int64.Type),
 
     // Add offset for this month (-1 = previous, 0 = current, 1 = next)
-    AddOffsetMonth = Table.AddColumn(AddFiscalMonthNumber, "offsetThisMonthMonths", each ([Year] * 12 + [Month Number]) - (Date.Year(_Today) * 12 + Date.Month(_Today)), Int64.Type),
+    AddOffsetMonth = Table.AddColumn(AddFiscalMonthNumber, "Offset Months", each ([Year] * 12 + [Month Number]) - (Date.Year(_Today) * 12 + Date.Month(_Today)), Int64.Type),
 
     // Add offset for this quarter (-1 = previous, 0 = current, 1 = next)
-    AddOffsetQuarter = Table.AddColumn(AddOffsetMonth, "offsetThisQuarterQuarters", each ([Year] * 4 + [Quarter Number]) - (Date.Year(_Today) * 4 + Date.QuarterOfYear(_Today)), Int64.Type),
+    AddOffsetQuarter = Table.AddColumn(AddOffsetMonth, "Offset Quarters", each ([Year] * 4 + [Quarter Number]) - (Date.Year(_Today) * 4 + Date.QuarterOfYear(_Today)), Int64.Type),
 
     // Add offset for this year (-1 = previous, 0 = current, 1 = next)
-    AddOffsetYear = Table.AddColumn(AddOffsetQuarter, "offsetThisYearYears", each [Year] - Date.Year(_Today), Int64.Type),
+    AddOffsetYear = Table.AddColumn(AddOffsetQuarter, "Offset Years", each [Year] - Date.Year(_Today), Int64.Type),
 
     // Add offset for this fiscal year (-1 = previous, 0 = current, 1 = next)
-    AddOffsetFiscalYear = Table.AddColumn(AddOffsetQuarter, "offsetThisFiscalYearYears", each [Fiscal Year] - Date.Year(Date.AddMonths(#date(Date.Year(_Today) + 1, Date.Month(_Today), 1), -_FirstMonthOfFiscalYear + 1)), Int64.Type),    
+    AddOffsetFiscalYear = Table.AddColumn(AddOffsetQuarter, "Offset Fiscal Years", each [Fiscal Year] - Date.Year(Date.AddMonths(#date(Date.Year(_Today) + 1, Date.Month(_Today), 1), -_FirstMonthOfFiscalYear + 1)), Int64.Type),    
 
     // Add isAfterToday (1 = in the future, 0 = today or past)
     AddIsAfterToday = Table.AddColumn(AddOffsetFiscalYear, "isAfterToday", each if [Date] > _Today then 1 else 0, Int64.Type),
 
     // Add offset for this week (1 = next week, -1 = previous week)
-    AddWeekOffset = Table.AddColumn(AddIsAfterToday, "offsetThisWeekWeeks", each Number.RoundDown(Duration.Days([Date] - Date.StartOfWeek(_Today, _FirstDayOfWeek)) / 7), Int64.Type)
+    AddWeekOffset = Table.AddColumn(AddIsAfterToday, "Offset Weeks", each Number.RoundDown(Duration.Days([Date] - Date.StartOfWeek(_Today, _FirstDayOfWeek)) / 7), Int64.Type)
 in
     AddWeekOffset
