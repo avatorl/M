@@ -17,7 +17,7 @@ let
     _Date_Start = #date(2022, 1, 1),
     
     // End date (manually entered)
-    _Date_End = #date(2024, 12, 31),
+    _Date_End = #date(2025, 12, 31),
 
 // PERIOD FROM DATA TABLES
 // Uncomment the following lines if you want the period to be dynamically calculated based on the data in your tables
