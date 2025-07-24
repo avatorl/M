@@ -17,9 +17,9 @@ let
     // Define the error to be raised if duplicates are found
     _Error = 
     error [ 
-        Reason = "DuplicateRecords", 
+        Reason = "DuplicateRecords",     
         Message = "Duplicate records", 
-        Detail = "Duplicate records found in the data" 
+        Detail = "Duplicate records found in the data (in column '" & ColumnName & "')"
     ],
     
     // Output the original table if no duplicates are found; otherwise, raise the error
