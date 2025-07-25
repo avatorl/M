@@ -1,3 +1,4 @@
+// Function to verify if table contains duplicate records. Return the table if no duplicates, return error if duplicates found
 (
     InputTable as table,
     // Parameter for the input table
