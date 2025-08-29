@@ -50,7 +50,7 @@ let
         Add_RelativeDays, "YYYYMMDD Number", each Number.From(Date.ToText([Date], "yyyyMMdd")), Int64.Type
     ),
     // Add YYYY-MM-DD as text (e.g., 2024-08-14)
-    Add_YYYYMMDD = Table.AddColumn(Add_YYYYMMDD_Number, "Date Text (YYYY-MM-DD)", each Date.ToText([Date], "yyyy-MM-dd"), type text),
+    Add_YYYYMMDD = Table.AddColumn(Add_YYYYMMDD_Number, "YYYY-MM-DD", each Date.ToText([Date], "yyyy-MM-dd"), type text),
     // Add day of the year (1..366)
     AddDayOfYear = Table.AddColumn(Add_YYYYMMDD, "Day of Year", each Date.DayOfYear([Date]), Int64.Type),
     // Add day of the month (1..31)
